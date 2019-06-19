@@ -1,0 +1,276 @@
+ASSIGNMENT 4
+
+
+T1.Create a repo GitCommand in your GitLab account.
+Click on new projects
+Enter your project name as “GitCommand”.
+
+T2.Delete repo *GitCommand"
+
+ 
+
+T3.Fork https://github.com/joshnh/Git-Commands in your GitLab account with the name GitCommand
+
+Follow these steps
+
+ 
+
+ 
+
+ 
+
+ 
+
+T4.Clone GitCommand repo using http protocol
+
+Make sure you have git installed on your maschine.
+Run the git clone command, copy the http url of your project.
+# git clone https://gitlab.com/saurabhmaurya24/Git-Commands.git
+
+If you had entered your username and password while forking the repo,it would prompt for user name and password.
+
+ 
+
+
+
+T5.Delete the cloned code
+# rm –rf Git-Commands
+Clone GitCommand repo using git protocol at ~/ninja
+# mkdir /ninja
+Copy your ssh public key in your git lab account.
+# cat .ssh/id_rsa.pub
+Now clone the repo using ssh protocol,copy the ssh url
+[root@localhost ~]# mkdir /ninja
+[root@localhost ~]# cd /ninja/
+[root@localhost ninja]# git clone git@gitlab.com:saurabhmaurya24/Git-Commands.git
+Cloning into 'Git-Commands'...
+The authenticity of host 'gitlab.com (35.231.145.151)' can't be established.
+ECDSA key fingerprint is SHA256:HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw.
+ECDSA key fingerprint is MD5:f1:d0:fb:46:73:7a:70:92:5a:ab:5d:ef:43:e2:1c:35.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'gitlab.com,35.231.145.151' (ECDSA) to the list of known hosts.
+remote: Enumerating objects: 101, done.
+remote: Counting objects: 100% (101/101), done.
+remote: Compressing objects: 100% (45/45), done.
+remote: Total 101 (delta 29), reused 101 (delta 29)
+Receiving objects: 100% (101/101), 16.63 KiB | 0 bytes/s, done.
+Resolving deltas: 100% (29/29), done.
+[root@localhost ninja]# ls
+Git-Commands
+
+T6.Create a folder ninja
+[root@localhost ninja]# cd Git-Commands/
+[root@localhost Git-Commands]# ls
+README.md  READMEpt.md
+[root@localhost Git-Commands]# mkdir ninja
+
+T7.Create a file README.md in ninja folder
+ [root@localhost Git-Commands]# cd ninja/
+[root@localhost ninja]# touch README.md
+[root@localhost ninja]# ls
+README.md
+
+T8.Make your changes available to GitCommand remote repo
+[root@localhost ninja]# git status
+# On branch master
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	./
+nothing added to commit but untracked files present (use "git add" to track)
+[root@localhost ninja]# 
+[root@localhost ninja]# git add .
+[root@localhost ninja]# git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	new file:   README.md
+[root@localhost ninja]# git commit -m "added a folder ninja with a README.md file"
+[master 7eeb60c] added a folder ninja with a README.md file
+ Committer: root <root@localhost.localdomain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 ninja/README.md
+
+ 
+
+
+
+
+Good To Do
+
+
+
+Get the latest code from remote repo without using git pull command
+# git fetch origin
+============================================================================================================================================
+
+ASSIGNMENT 5
+
+T1.Add a file README.md with content "Trying fast forward merge"
+[root@localhost ninja]# echo "Trying fast forward merge"> README.md 
+[root@localhost ninja]# cat README.md 
+Trying fast forward merge
+
+T2.Create a branch ninja and move to it
+# git branch ninja
+# git checkout ninja
+0r
+# git checkout –b ninja
+
+T3.Run git status command
+[root@localhost Git-Commands]# git branch
+  master
+* ninja
+[root@localhost Git-Commands]# git status
+# On branch ninja
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   ninja/README.md
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+
+T5.Commit your changes to ninja branch
+[root@localhost Git-Commands]# git status
+# On branch ninja
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   ninja/README.md
+#
+[root@localhost Git-Commands]# git commit -m "made changes in README.md file and commiting it to new branch ninja"
+[ninja 4b0fd75] made changes in README.md file and commiting it to new branch ninja
+ Committer: root <root@localhost.localdomain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+
+[root@localhost Git-Commands] # git status
+# On branch ninja
+nothing to commit, working directory clean
+
+T6.Merge ninja branch to master branch make sure that a new commit get's created
+[root@localhost Git-Commands]# git checkout master
+Switched to branch 'master'
+[root@localhost Git-Commands]# git branch
+* master
+  ninja
+[root@localhost Git-Commands]# git merge ninja
+Updating 7eeb60c..4b0fd75
+Fast-forward
+ ninja/README.md | 1 +
+ 1 file changed, 1 insertion(+)
+
+T7.Assuming you are in master branch, modify README.md with content Changes in master branch, commit the changes in master branch.
+[root@localhost Git-Commands] # git commit -m "making changes in README.md file"
+[master 2c9e0e1] making changes in README.md file
+ Committer: root <root@localhost.localdomain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+[root@localhost Git-Commands]# git push origin master
+Counting objects: 11, done.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (8/8), 699 bytes | 0 bytes/s, done.
+Total 8 (delta 2), reused 0 (delta 0)
+To git@gitlab.com:saurabhmaurya24/Git-Commands.git
+   7eeb60c..2c9e0e1  master -> master	
+
+T8.Switch to ninja branch, modify README.md with content Changes in ninja branch, commit the changes in ninja branch.
+
+[root@localhost Git-Commands]# git branch
+  master
+* ninja
+[root@localhost Git-Commands]# git status
+# On branch ninja
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   ninja/README.md
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[root@localhost Git-Commands]# git add .
+[root@localhost Git-Commands]# git commit -m "making changes in README.md file on ninja branch"
+[ninja b0737c3] making changes in README.md file on ninja branch
+ Committer: root <root@localhost.localdomain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+[root@localhost Git-Commands]# git status
+# On branch ninja
+nothing to commit, working directory clean
+
+
+T9.Merge master branch to ninja branch in such a fashion that changes of master branch overrides changes in ninja branch
+[root@localhost ninja]# git merge master
+Updating e01ce8b..7f36e54
+Fast-forward
+ ninja/README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+[root@localhost ninja]# cat README.md 
+Trying fast forward merge
+Changes in master branch
+[root@localhost ninja]# git branch
+  master
+* ninja
+
+T10.Revert the above merge commit
+
+Merge master branch to ninja branch in such a fashion that changes of ninja branch overrides changes in master branch
+
+Revert the above merge commit
+
+Merge master branch to ninja branch in such a fashion that changes of both branches gets accumulated.
+
+
+
+
+
+Good To Do
+
+
+
+Simulate the above scenarios using rebase
+
+Create 2 repositories in you Git Lab account Repo1 & Repo2 in Repo1. Create 2 branches branchR11 and branchR12 in Repo1, similarly create 2 branches branchR21 and branchR22 in Repo2. Now merge code of branch branchR11 in Repo1 to branchR22 in Repo2.
+
