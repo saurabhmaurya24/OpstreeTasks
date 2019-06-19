@@ -1,0 +1,297 @@
+Assignment 1
+Install the package
+yum install vsftpd -y
+
+Configuring services of ftp
+
+[root@devopsninja ~]# systemctl start vsftpd
+[root@devopsninja ~]# systemctl enable vsftpd
+Created symlink from /etc/systemd/system/multi-user.target.wants/vsftpd.service to /usr/lib/systemd/system/vsftpd.service.
+[root@devopsninja ~]# firewall-cmd --permanent --add-service=ftp
+success
+[root@devopsninja ~]# firewall-cmd --reload 
+
+Creating a file in the pub folder of FTP
+[root@devopsninja ~]# cd /var/ftp/
+[root@devopsninja ftp]# ls
+pub
+[root@devopsninja ftp]# touch xyz
+[root@devopsninja ftp]# cd pub/
+[root@devopsninja pub]# touch abc{1..3}
+[root@devopsninja pub]# ls
+abc1  abc2  abc3
+[root@devopsninja pub]# ls
+abc1  abc2  abc3
+[root@devopsninja pub]# cd
+
+Open the browser 
+ftp://hostIp
+
+To allow other users to access FTP set the following
+[root@devopsninja ~]# setsebool -P tftp_home_dir=1
+[root@devopsninja ~]# getsebool -a | grep ftp
+
+create a user of any name on the host maschine
+#useradd saurabh
+
+
+#passwd saurabh
+
+switch to the user saurabh and create any text files
+
+touch ibm{1..2}
+
+exit
+
+Open the browser 
+ftp://hostIp
+
+Go on the client maschine  and configure it as ftp client
+
+#yum install ftp -y
+ping the host maschine
+
+log in as root user on the ftp server
+server ip=192.168.201.169
+
+[root@localhost ~]# ftp 192.168.201.169
+Connected to 192.168.201.169 (192.168.201.169).
+220 (vsFTPd 3.0.2)
+Name (192.168.201.169:root): ftp
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+227 Entering Passive Mode (192,168,201,169,111,217).
+150 Here comes the directory listing.
+drwxr-xr-x    2 0        0              42 Jun 17 14:42 pub
+-rw-r--r--    1 0        0               0 Jun 17 14:37 xyz
+226 Directory send OK.
+ftp> 
+
+You would be able to see the files shared 
+
+To login as user on ftp server
+
+[root@localhost ~]# ftp 192.168.201.169
+Connected to 192.168.201.169 (192.168.201.169).
+220 (vsFTPd 3.0.2)
+Name (192.168.201.169:root): saurabh
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+227 Entering Passive Mode (192,168,201,169,233,27).
+150 Here comes the directory listing.
+-rw-rw-r--    1 1001     1001            0 Jun 17 15:53 ibm1
+-rw-rw-r--    1 1001     1001            0 Jun 17 15:54 ibm2
+226 Directory send OK.
+ftp>
+
+
+
+
+
+
+
+ASSIGNMENT 2
+GIT INSTALLATION FROM PACKAGE MANAGER
+
+# yum install git -y
+
+
+
+
+
+
+Install Git from Source.
+
+download the latest release package from git  https://github.com/git/git/releases
+
+#wget https://github.com/git/git/archive/v2.22.0.tar.gz
+
+# cd git-2.22.0/
+
+Install the dependencies and the Development Tools
+
+yum groupinstall 'Development Tools' -y
+yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-CPAN perl-devel -y
+
+# make configure
+# make install
+# cd
+# git --version
+
+https://github.com/saurabhmaurya24/oracle.git
+
+
+
+
+Assignment 3
+
+
+Initialize a local git repository
+# git clone https://github.com/saurabhmaurya24/oracle.git
+# cd oracle
+# touch README.md
+[root@localhost oracle]# vim README.md 
+[root@localhost oracle]# git status
+
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+[root@localhost oracle]# touch README{1..3}.md
+[root@localhost oracle]# ls
+abc1  harrySecondFile  README1.md  README3.md  test1
+abc2  JeffFileOne      README2.md  README.md   test2
+[root@localhost oracle]# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	README.md
+	README1.md
+	README2.md
+	README3.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+[root@localhost oracle]# git add .
+[root@localhost oracle]# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	new file:   README.md
+	new file:   README1.md
+	new file:   README2.md
+	new file:   README3.md
+
+[root@localhost oracle]# git reset HEAD README1 README2
+[root@localhost oracle]# echo "Temporary content" > README3
+[root@localhost oracle]# cat README3
+Temporary content
+[root@localhost oracle]# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	new file:   README.md
+	new file:   README1.md
+	new file:   README2.md
+	new file:   README3.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	README3
+
+[root@localhost oracle]# git clean -f
+Removing README3
+[root@localhost oracle]# git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	new file:   README.md
+	new file:   README1.md
+	new file:   README2.md
+	new file:   README3.md
+
+[root@localhost oracle]# git checkout -b sensei ninja
+A	README.md
+A	README1.md
+A	README2.md
+A	README3.md
+Switched to a new branch 'sensei'
+[root@localhost oracle]# git branch
+  master
+  ninja
+* sensei
+[root@localhost oracle]# git branch -d sensei
+error: Cannot delete branch 'sensei' checked out at '/root/oracle'
+[root@localhost oracle]# git checkout master
+A	README.md
+A	README1.md
+A	README2.md
+A	README3.md
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+[root@localhost oracle]# git branch -d sensei
+Deleted branch sensei (was ea080a5).
+[root@localhost oracle]# git commit -m "committing changes"
+[master bd54da0] committing changes
+ Committer: root <root@localhost.localdomain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 4 files changed, 1 insertion(+)
+ create mode 100644 README.md
+ create mode 100644 README1.md
+ create mode 100644 README2.md
+ create mode 100644 README3.md
+[root@localhost oracle]# git log
+commit bd54da0c1561c7fc1679d973d907b9dbcbf5c565 (HEAD -> master)
+Author: root <root@localhost.localdomain>
+Date:   Tue Jun 18 15:33:53 2019 +0530
+
+    committing changes
+
+
+
+
+
+
+Good to do
+Create a shell script that will take a Git URL Number of days as input and it will list out all the commits that have been done in last n number of days. The script should display information like given below. A commit will be treated as valid one if it starts with a JIRA id [JIRA-xxxx]:
+
+Date/Time, Author Name, Author Email, Commit Message, Valid Commit Message
+
+#!/bin/bash
+echo "Enter the git repo url"
+read gitUrl
+
+
+echo "The entered URL is" $gitUrl 
+
+yum install git -y
+
+echo "clonning repo"
+
+reponame=$(echo $gitUrl | awk -F/ '{print $NF}' | sed -e 's/.git$//');
+
+git clone $gitUrl $reponame
+
+echo $reponame
+
+cd $reponame
+
+git log --before="2019-6-19"- --pretty=format:"Commit Hash: %H, Author: %aN, Date: %aD Author Email: %aE,Commit Message: %N" | paste - - - > /root/file.txt
+
+cat /root/file.txt
