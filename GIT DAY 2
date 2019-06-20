@@ -242,35 +242,73 @@ nothing to commit, working directory clean
 
 
 T9.Merge master branch to ninja branch in such a fashion that changes of master branch overrides changes in ninja branch
-[root@localhost ninja]# git merge master
-Updating e01ce8b..7f36e54
-Fast-forward
- ninja/README.md | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-[root@localhost ninja]# cat README.md 
-Trying fast forward merge
-Changes in master branch
 [root@localhost ninja]# git branch
   master
 * ninja
+[root@localhost ninja]# git merge master
+Auto-merging ninja/README.md
+CONFLICT (content): Merge conflict in ninja/README.md
+Automatic merge failed; fix conflicts and then commit the result.
+[root@localhost ninja]# cat README.md 
+<<<<<<< HEAD
+ Changes in ninja branch
+=======
+content Changes in master branch
+>>>>>>> master
+[root@localhost ninja]# vim README.md 
+[root@localhost ninja]# cat README.md 
+content Changes in master branch
+
+[root@localhost ninja]# git status -s
+UU README.md
+[root@localhost ninja]# git status
+# On branch ninja
+# You have unmerged paths.
+#   (fix conflicts and run "git commit")
+#
+# Unmerged paths:
+#   (use "git add <file>..." to mark resolution)
+#
+#	both modified:      README.md
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+[root@localhost ninja]# git add README.md
+[root@localhost ninja]# git commit -m "merge resolve"
+[ninja 59c83a5] merge resolve
+Committer: root <root@localhost.localdomain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+[root@localhost ninja]# git status
+# On branch ninja
+nothing to commit, working directory clean
+
 
 T10.Revert the above merge commit
 
-Merge master branch to ninja branch in such a fashion that changes of ninja branch overrides changes in master branch
+[root@localhost ninja]# git revert -m 1 HEAD
+[ninja 11abe87] Reverting back to prvious stage
+ Committer: root <root@localhost.localdomain>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
 
-Revert the above merge commit
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
 
-Merge master branch to ninja branch in such a fashion that changes of both branches gets accumulated.
+After doing this, you may fix the identity used for this commit with:
 
+    git commit --amend --reset-author
 
-
-
-
-Good To Do
-
-
-
-Simulate the above scenarios using rebase
-
-Create 2 repositories in you Git Lab account Repo1 & Repo2 in Repo1. Create 2 branches branchR11 and branchR12 in Repo1, similarly create 2 branches branchR21 and branchR22 in Repo2. Now merge code of branch branchR11 in Repo1 to branchR22 in Repo2.
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+[root@localhost ninja]# git status
+# On branch ninja
 
